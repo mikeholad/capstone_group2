@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content remains the same -->
+</head>
+<body>
+    <!-- Body content remains the same -->
+</body>
+</html>
+
+<script>
+    // Function to handle the login form submission
+    function handleLogin(event) {
+        event.preventDefault();
+        const usernameOrEmail = document.querySelector('#loginUsernameOrEmail').value;
+        const password = document.querySelector('#loginPassword').value;
+
+        // Send a POST request to the login API endpoint
+        fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                usernameOrEmail: usernameOrEmail,
+                password: password,
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                // Login was successful, you can redirect to another page or perform some action here
+                console.log('Login successful!');
+            } else {
+                // Login failed, display an error message to the user
+                console.error('Login failed:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error occurred during login:', error);
+        });
+    }
+
+    // Function to handle the registration form submission
+    function handleRegistration(event) {
+        event.preventDefault();
+        const firstname = document.querySelector('#firstname').value;
+        const lastname = document.querySelector('#lastname').value;
+        const email = document.querySelector('#registrationEmail').value;
+        const password = document.querySelector('#registrationPassword').value;
+
+        // Send a POST request to the register API endpoint
+        fetch('http://localhost:3000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password,
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                // Registration was successful, you can redirect to another page or perform some action here
+                console.log('Registration successful!');
+            } else {
+                // Registration failed, display an error message to the user
+                console.error('Registration failed:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error occurred during registration:', error);
+        });
+    }
+
+    // Add event listeners to the login and registration forms
+    document.querySelector('#loginForm').addEventListener('submit', handleLogin);
+    document.querySelector('#registrationForm').addEventListener('submit', handleRegistration);
+</script>
